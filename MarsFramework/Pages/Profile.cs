@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using MarsFramework.Global;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 
 namespace MarsFramework
@@ -32,21 +33,7 @@ namespace MarsFramework
         [FindsBy(How = How.XPath, Using = "//*[@id='account-profileEdit-section']/div/section[2]/div/div/div/form/div[1]/div/div[4]/div")]
         private IWebElement Salary { get; set; }
 
-        //Click on Location
-        [FindsBy(How = How.XPath, Using = "//*[@id='account-profileEdit-section']/div/section[2]/div/div/div/form/div[2]/div/div[2]/div")]
-        private IWebElement Location { get; set; }
-
-        //Choose Location
-        [FindsBy(How = How.XPath, Using = "//*[@id='account-profileEdit-section']/div/section[2]/div/div/div/form/div[2]/div/div[2]/div/div[2]")]
-        private IWebElement LocationOpt { get; set; }
-
-        //Click on City
-        [FindsBy(How = How.XPath, Using = "//*[@id='account-profileEdit-section']/div/section[2]/div/div/div/form/div[2]/div/div[3]/div")]
-        private IWebElement City { get; set; }
-
-        //Choose City
-        [FindsBy(How = How.XPath, Using = "//*[@id='account-profileEdit-section']/div/section[2]/div/div/div/form/div[2]/div/div[3]/div/div[2]")]
-        private IWebElement CityOpt { get; set; }
+        
 
         //Click on Add new to add new Language
         [FindsBy(How = How.XPath, Using = "//*[@id='account-profileEdit-section']/div/section[2]/div/div/div/form/div[3]/div/div[2]/div/table/thead/tr/th[3]/div")]
@@ -56,16 +43,12 @@ namespace MarsFramework
         [FindsBy(How = How.XPath, Using = "//*[@id='account-profileEdit-section']/div/section[2]/div/div/div/form/div[3]/div/div[2]/div/div/div[1]/input")]
         private IWebElement AddLangText { get; set; }
 
-        //Enter the Language on text box
-        [FindsBy(How = How.XPath, Using = "//*[@id='account-profileEdit-section']/div/section[2]/div/div/div/form/div[3]/div/div[2]/div/div/div[2]/select")]
-        private IWebElement ChooseLang { get; set; }
-
-        //Enter the Language on text box
-        [FindsBy(How = How.XPath, Using = "//*[@id='account-profileEdit-section']/div/section[2]/div/div/div/form/div[3]/div/div[2]/div/div/div[2]/select/option[3]")]
-        private IWebElement ChooseLangOpt { get; set; }
+        //select the language level
+        [FindsBy(How = How.XPath, Using = "//option[@value='Fluent']")]
+        private IWebElement Addlanglevel { get; set; }
 
         //Add Language
-        [FindsBy(How = How.XPath, Using = "//*[@id='account-profileEdit-section']/div/section[2]/div/div/div/form/div[3]/div/div[2]/div/div/div[3]/input[1]")]
+        [FindsBy(How = How.XPath, Using = "//input[@value='Add']")]
         private IWebElement AddLang { get; set; }
 
         //Click on Add new to add new skill
@@ -164,6 +147,83 @@ namespace MarsFramework
 
         internal void EditProfile()
         {
+            //Populate the excel data
+            GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "Profile");
+
+            //Click on Edit time button
+            AvailabilityTimeEdit.Click();
+
+            //click on dropdown
+            AvailabilityTime.Click();
+
+            //select the time option from dropdown
+            AvailabilityTimeOpt.Click();
+
+            //Click on Availability Hour
+            AvailabilityHours.Click();
+
+            //Click on salary
+            Salary.Click();
+
+            //Click on Addnew Button to add new Language
+            AddNewLangBtn.Click();
+
+            //Enter the Language on text box
+            AddLangText.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Language"));
+
+            //Select the lang level from the dropdown
+            Addlanglevel.Click();
+
+            //Add the lang
+            AddLang.Click();
+
+            //Click on Add new to add new skill
+            AddNewSkillBtn.Click();
+            //Enter the Skill on text box
+            AddSkillText.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Skills"));
+            //Click on skill level dropdown
+            ChooseSkill.Click();
+            //Choose the skill level option
+            ChooseSkilllevel.Click();
+            //Add Skill
+            AddSkill.Click();
+            //Click on Add new to Education
+            AddNewEducation.Click();
+
+            GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "Education");
+            //Enter university in the text box
+            EnterUniversity.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "University"));
+
+            ChooseCountry.Click();
+            ChooseCountryOpt.Click();
+            ChooseTitle.Click();
+            ChooseTitleOpt.Click();
+            Degree.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Degree"));
+            DegreeYear.Click();
+            DegreeYearOpt.Click();
+            AddEdu.Click();
+
+            GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "Certification");
+            AddNewCerti.Click();
+            EnterCerti.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Certificate"));
+            CertiFrom.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "CertifiedFrom"));
+            CertiYear.Click();
+            CertiYearOpt.Click();
+            AddCerti.Click();
+
+
+            GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "Description");
+            Description.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Descriptiondetails"));
+            Save.Click();
+
+
+
+
+
+
+
+
+
 
         }
     }

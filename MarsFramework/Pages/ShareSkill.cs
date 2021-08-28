@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using MarsFramework.Global;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 
 namespace MarsFramework.Pages
@@ -88,12 +89,31 @@ namespace MarsFramework.Pages
 
         internal void EnterShareSkill()
         {
+            GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "Shareskill");
+
+            ShareSkillButton.Click();
+            Title.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Title"));
+            Description.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Description"));
+            CategoryDropDown.Click();
+            SubCategoryDropDown.Click();
+            Tags.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Tag"));
+            ServiceTypeOptions.Click();
+            LocationTypeOption.Click();
+            StartDateDropDown.Click();
+            EndDateDropDown.Click();
+            Days.Click();
+            StartTime.Click();
+            StartTimeDropDown.Click();
+            EndTimeDropDown.Click();
+            SkillTradeOption.Click();
+            SkillExchange.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "SkillExchange"));
+            CreditAmount.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Creditamount"));
+
+            ActiveOption.Click();
+            Save.Click();
+
 
         }
 
-        internal void EditShareSkill()
-        {
-
-        }
     }
 }
